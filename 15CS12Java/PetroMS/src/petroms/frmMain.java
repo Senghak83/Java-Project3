@@ -5,6 +5,7 @@
  */
 package petroms;
 
+import DBMS.DBMS_Customer;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -22,11 +23,16 @@ public class frmMain extends javax.swing.JFrame {
 
     private boolean back= true;
     private int add = 0;
+    private DBMS_Customer db = new DBMS_Customer("Petrol.txt");
     //--- setcolor
     
     private final ArrayList<JLabel> lis = new ArrayList();
     public frmMain() {
         initComponents();
+        //--
+        
+        //--
+        
         this.setSize(1300, 700);
         this.setLocationRelativeTo(null);
         lis.add(this.lblAdd);
@@ -95,6 +101,11 @@ public class frmMain extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setSize(new java.awt.Dimension(500, 400));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         pnaviga.setBackground(new java.awt.Color(0, 102, 102));
         pnaviga.setPreferredSize(new java.awt.Dimension(180, 610));
@@ -411,7 +422,7 @@ public class frmMain extends javax.swing.JFrame {
 
     private void lblAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMouseClicked
         // TODO add your handling code here:
-        this.refresh(new frmAddCustomer());
+        this.refresh(new frmAddCustomer(db));
     }//GEN-LAST:event_lblAddMouseClicked
 
     private void pbackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pbackMouseClicked
@@ -423,6 +434,11 @@ public class frmMain extends javax.swing.JFrame {
         // TODO add your handling code here:
         refresh(new frmSale());
     }//GEN-LAST:event_lblSalMouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        db.InsertDataToFile();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
