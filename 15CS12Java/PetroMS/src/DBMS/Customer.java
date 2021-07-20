@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package DBMS;
 
 import java.io.Serializable;
@@ -20,7 +16,7 @@ public class Customer extends Person implements Serializable{
     public Customer(){
         super();
     }
-    public Customer(Person p,String address, String station_name,String phone){
+    public Customer(Person p, String station_name,String address,String phone){
         super(p);
         this.add = address; this.station_name = station_name;
         this.phone = phone;

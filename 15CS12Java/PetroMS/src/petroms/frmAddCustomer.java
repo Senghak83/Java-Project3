@@ -8,6 +8,9 @@ package petroms;
 import DBMS.Customer;
 import DBMS.DBMS_Customer;
 import DBMS.Person;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -15,17 +18,19 @@ public class frmAddCustomer extends javax.swing.JPanel {
 
     private DefaultTableModel model ; 
     private DBMS_Customer dbc ;
+    
     public frmAddCustomer() {
         initComponents();
-        //setCulumn();
-        
+           
     }
+    
     public frmAddCustomer(DBMS_Customer dbc){
         this.initComponents();
+        
         setCulumn();
         this.dbc = dbc;
-        this.Display_data_table();
-        this.txtid.setText("LLP"+(dbc.getSize()+1));
+        this.Display_data_table(dbc.getAllCustomer());
+        this.txtid.setText("CSPS "+(dbc.getSize()+1));
         txtid.setEnabled(false);
         setEnableButton(2);
     }
@@ -48,19 +53,19 @@ public class frmAddCustomer extends javax.swing.JPanel {
         t.getColumnModel().getColumn(1).setPreferredWidth(50);
         t.getColumnModel().getColumn(2).setPreferredWidth(100);
         t.getColumnModel().getColumn(3).setPreferredWidth(10);
-        t.getColumnModel().getColumn(4).setPreferredWidth(200);
-        t.getColumnModel().getColumn(6).setPreferredWidth(150);
+        t.getColumnModel().getColumn(4).setPreferredWidth(100);
+        //t.getColumnModel().getColumn(6).setPreferredWidth();
     }
     //------
     
-    private void  Display_data_table(){
+    private void  Display_data_table(ArrayList<Customer> d){
        // remove data from table
        int rc = t.getRowCount();
        int n = 1;
        for(int i = rc -1 ; i>=0 ; i--)
            model.removeRow(i);
        //--- data to table
-       for(Customer c : this.dbc.getAllCustomer()){
+       for(Customer c : d){
            model.addRow(new Object[]{n,c.getID(),c.getName(),c.getSex(),
            c.getStation_name(),c.getAdress(),c.getPhone()});
            n++;
@@ -68,6 +73,35 @@ public class frmAddCustomer extends javax.swing.JPanel {
        t.setModel(model);
     }
     
+    //---- Check Texbox----
+    private Customer checkTextBox(){
+        String id = txtid.getText();
+        String name = txtname.getText();
+        String sex = cbosex.getSelectedItem().toString();
+        String station_name = this.txtstation_name.getText();
+        String address = this.txtaddress.getText();
+        String phone = this.txtphone.getText();
+        
+        if(id.length()==0)
+            Msg(txtid,"Input ID ");
+        else if(name.length()==0)
+            Msg(txtname,"Input Name");
+        else if(station_name.length()==0)
+            Msg(txtstation_name,"Input Station Name");
+        else if(address.length()==0)
+            Msg(txtaddress,"Input Address");
+        else if(phone.length()==0)
+            Msg(txtphone,"Input phone number");
+        else{
+            return new Customer(new Person(id,name,sex),station_name,address,phone);
+        }     
+        return null;
+    }//
+    //---- setFocus when textfield if empty
+    private void Msg(JTextField t,String mess){
+        JOptionPane.showMessageDialog(null, mess);
+        t.requestFocus();
+     }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -130,6 +164,11 @@ public class frmAddCustomer extends javax.swing.JPanel {
                 btnewMouseClicked(evt);
             }
         });
+        btnew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnewActionPerformed(evt);
+            }
+        });
 
         btadd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/save.png"))); // NOI18N
         btadd.setText("ADD");
@@ -141,6 +180,17 @@ public class frmAddCustomer extends javax.swing.JPanel {
         });
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/shearch.png"))); // NOI18N
+
+        txtsearch.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtsearchCaretUpdate(evt);
+            }
+        });
+        txtsearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtsearchActionPerformed(evt);
+            }
+        });
 
         t.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -278,40 +328,102 @@ public class frmAddCustomer extends javax.swing.JPanel {
 
     private void btaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btaddActionPerformed
         // TODO add your handling code here:
-        
-        String id = txtid.getText();
-        String name = txtname.getText();
-        String sex = cbosex.getSelectedItem().toString();
-        String station_name = this.txtstation_name.getText();
-        String address = this.txtaddress.getText();
-        String phone = this.txtphone.getText();
-       
-        dbc.addCustomer(new Customer(
-                new Person(id,name,sex),station_name,address,phone));
-        model.addRow(new Object[]{t.getRowCount()+1,id,name,sex,station_name,
-        address,phone});
-        
-        txtid.setText("LP "+(t.getRowCount()+1));
-        
+        Customer c = checkTextBox();
+         if(c!=null){
+             int rs = JOptionPane.showConfirmDialog(null, "Add one record","Add new Record",
+                     JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+             if(rs==0){
+               dbc.addCustomer(c);
+               model.addRow(new Object[]{t.getRowCount()+1,c.getID(),
+               c.getName(),c.getSex(),c.getStation_name(),c.getAdress(),c.getPhone()});
+               t.setModel(model);
+               txtid.setText("CSPS "+(t.getRowCount()+1));
+               //----
+               //txtname.setText("");
+               ClearText();
+                 
+             }
+             
+         }
+                
     }//GEN-LAST:event_btaddActionPerformed
-
+    private void ClearText(){
+        this.txtaddress.setText("");
+               this.txtphone.setText("");
+               this.txtstation_name.setText("");
+               txtname.selectAll();
+               txtname.requestFocus();
+    }
     private void btupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btupdateActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:   
+        Customer c = this.checkTextBox();
+        if(c==null)return;
+        this.setEnableButton(2);
+        int y = JOptionPane.showConfirmDialog(null, "Do you want to update this recor",
+                "Update for",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        if(y==0){
+           
+               int sr = t.getSelectedRow();
+               dbc.updateCustomer(sr, c);
+               t.setValueAt(c.getID(), sr, 1);
+               t.setValueAt(c.getName(), sr, 2);
+               t.setValueAt(c.getSex(), sr, 3);
+               t.setValueAt(c.getStation_name(), sr, 4);
+               t.setValueAt(c.getAdress(), sr, 5);
+               t.setValueAt(c.getPhone(), sr, 6);
+           
+        }
+        ClearText();
+                
     }//GEN-LAST:event_btupdateActionPerformed
 
     private void btdeletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btdeletActionPerformed
         // TODO add your handling code here:
+        int rs = t.getSelectedRow();
+        int y = JOptionPane.showConfirmDialog(null, "Do you want to update this recor",
+                "Update for",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        if(y==0){
+            dbc.removeCustomer(rs);
+            model.removeRow(rs);
+            this.setEnableButton(2);
+        }
     }//GEN-LAST:event_btdeletActionPerformed
 
     private void tMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tMouseClicked
         // TODO add your handling code here:
         this.setEnableButton(1);
+        int rs = t.getSelectedRow();
+        Customer c = (Customer)dbc.getCustomer(rs);
+        txtid.setText(c.getID());
+        txtname.setText(c.getName());
+        cbosex.setSelectedItem(c.getSex());
+        txtstation_name.setText(c.getStation_name());
+        txtaddress.setText(c.getAdress());
+        txtphone.setText(c.getPhone());
+        
+        
     }//GEN-LAST:event_tMouseClicked
 
     private void btnewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnewMouseClicked
         // TODO add your handling code here:
         setEnableButton(2);
+        this.ClearText();
     }//GEN-LAST:event_btnewMouseClicked
+
+    private void btnewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnewActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnewActionPerformed
+
+    private void txtsearchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtsearchCaretUpdate
+        // TODO add your handling code here:
+        this.Display_data_table(dbc.getFilterName(txtsearch.getText()));
+    }//GEN-LAST:event_txtsearchCaretUpdate
+
+    private void txtsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsearchActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtsearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

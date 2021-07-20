@@ -18,11 +18,11 @@ public class DBMS_Customer {
     private ArrayList<Customer> db = new ArrayList();
     private String fn ;
     private boolean ch= false;
-    public DBMS_Customer(String fn){
+    
+    public DBMS_Customer(String fn){ // DBMS_Customer("txt.dat")
         this.fn = fn;
         try{
-            ObjectInputStream oin = new ObjectInputStream(
-                                 new FileInputStream(fn));   
+            ObjectInputStream oin = new ObjectInputStream( new FileInputStream(fn));   
             ch = true;
             Customer cu;
             while(true){
@@ -45,8 +45,8 @@ public class DBMS_Customer {
          }// end catch
     }// end constructor
   //-------
-   public void addCustomer(Customer cu){db.add(cu);}
-   public void updateCustomer(int index, Customer cu){db.set(index, cu);}
+   public void addCustomer(Customer cu){db.add(cu);}// 1,2,4,10
+   public void updateCustomer(int index, Customer cu){db.set(index, cu);}// (2,10)
    public void removeCustomer(int index){db.remove(index);}
    public Customer getCustomer(int index){return db.get(index);}
    public ArrayList<Customer> getAllCustomer(){return db;}
@@ -56,6 +56,7 @@ public class DBMS_Customer {
      try{
          ObjectOutputStream ob = new ObjectOutputStream(
          new FileOutputStream(fn));
+         //-------
          for(Customer c : this.getAllCustomer())
              ob.writeObject(c);
          ob.close();
@@ -65,10 +66,10 @@ public class DBMS_Customer {
    }   
 
 //---
-   private ArrayList<Customer> getFilterName(String name){
+   public ArrayList<Customer> getFilterName(String name){
         ArrayList<Customer> ls = new ArrayList();
         if(name.length()==0)return db;
-        for(Customer c : this.getAllCustomer()){
+        for(Customer c : this.getAllCustomer()){// ab , abc acmn
             String n = c.getName();
             if(n.length()<name.length())continue;
             n = n.substring(0,name.length());

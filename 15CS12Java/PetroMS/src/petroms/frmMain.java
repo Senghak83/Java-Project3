@@ -23,14 +23,12 @@ public class frmMain extends javax.swing.JFrame {
 
     private boolean back= true;
     private int add = 0;
-    private DBMS_Customer db = new DBMS_Customer("Petrol.txt");
+    private DBMS_Customer db = new DBMS_Customer("src/db/Customer.dat");
     //--- setcolor
     
     private final ArrayList<JLabel> lis = new ArrayList();
     public frmMain() {
         initComponents();
-        //--
-        
         //--
         
         this.setSize(1300, 700);
@@ -59,6 +57,7 @@ public class frmMain extends javax.swing.JFrame {
               if(j==i){
                   l.get(j).setForeground(Color.red);
                   l.get(j).setFont(new Font("",Font.ITALIC,12));
+                  
               }
               else{
                   l.get(j).setForeground(Color.white);
@@ -341,7 +340,7 @@ public class frmMain extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnaviga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pcontance, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
+                .addComponent(pcontance, javax.swing.GroupLayout.DEFAULT_SIZE, 889, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
