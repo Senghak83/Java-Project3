@@ -49,6 +49,13 @@ public class DBMS_Customer {
    public void updateCustomer(int index, Customer cu){db.set(index, cu);}// (2,10)
    public void removeCustomer(int index){db.remove(index);}
    public Customer getCustomer(int index){return db.get(index);}
+   public int getCus_ID_Index(String id){
+        for(int i =0 ; i<db.size(); i++){
+            if(id.equals(db.get(i).getID()))return i;
+        }
+        return -1;
+   }
+   
    public ArrayList<Customer> getAllCustomer(){return db;}
    public int getSize(){return db.size();}
    
@@ -64,7 +71,7 @@ public class DBMS_Customer {
          JOptionPane.showMessageDialog(null,exp.toString());
      }
    }   
-
+ 
 //---
    public ArrayList<Customer> getFilterName(String name){
         ArrayList<Customer> ls = new ArrayList();

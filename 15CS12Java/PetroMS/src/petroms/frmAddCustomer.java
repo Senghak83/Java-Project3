@@ -329,6 +329,11 @@ public class frmAddCustomer extends javax.swing.JPanel {
     private void btaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btaddActionPerformed
         // TODO add your handling code here:
         Customer c = checkTextBox();
+        if(dbc.getCus_ID_Index(txtid.getText())!=-1){
+            JOptionPane.showMessageDialog(null,"Already exist "+ txtid.getText());
+            txtid.setEnabled(true);
+            return;
+        }
          if(c!=null){
              int rs = JOptionPane.showConfirmDialog(null, "Add one record","Add new Record",
                      JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
@@ -337,9 +342,7 @@ public class frmAddCustomer extends javax.swing.JPanel {
                model.addRow(new Object[]{t.getRowCount()+1,c.getID(),
                c.getName(),c.getSex(),c.getStation_name(),c.getAdress(),c.getPhone()});
                t.setModel(model);
-               txtid.setText("CSPS "+(t.getRowCount()+1));
-               //----
-               //txtname.setText("");
+               txtid.setEnabled(false);
                ClearText();
                  
              }
@@ -351,6 +354,7 @@ public class frmAddCustomer extends javax.swing.JPanel {
         this.txtaddress.setText("");
                this.txtphone.setText("");
                this.txtstation_name.setText("");
+               this.txtid.setText("CSPS "+(dbc.getSize()+1));
                txtname.selectAll();
                txtname.requestFocus();
     }
@@ -364,7 +368,10 @@ public class frmAddCustomer extends javax.swing.JPanel {
         if(y==0){
            
                int sr = t.getSelectedRow();
-               dbc.updateCustomer(sr, c);
+               int i = dbc.getCus_ID_Index(c.getID());
+               
+               dbc.updateCustomer(i, c);
+               
                t.setValueAt(c.getID(), sr, 1);
                t.setValueAt(c.getName(), sr, 2);
                t.setValueAt(c.getSex(), sr, 3);
@@ -386,21 +393,24 @@ public class frmAddCustomer extends javax.swing.JPanel {
             dbc.removeCustomer(rs);
             model.removeRow(rs);
             this.setEnableButton(2);
+            this.ClearText();
         }
     }//GEN-LAST:event_btdeletActionPerformed
 
     private void tMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tMouseClicked
         // TODO add your handling code here:
         this.setEnableButton(1);
-        int rs = t.getSelectedRow();
-        Customer c = (Customer)dbc.getCustomer(rs);
-        txtid.setText(c.getID());
-        txtname.setText(c.getName());
-        cbosex.setSelectedItem(c.getSex());
-        txtstation_name.setText(c.getStation_name());
-        txtaddress.setText(c.getAdress());
-        txtphone.setText(c.getPhone());
+        int rs = dbc.getCus_ID_Index(t.getValueAt(t.getSelectedRow(), 1).toString());
+        if(rs!=-1){
         
+           Customer c = (Customer)dbc.getCustomer(rs);
+           txtid.setText(c.getID());
+           txtname.setText(c.getName());
+           cbosex.setSelectedItem(c.getSex());
+           txtstation_name.setText(c.getStation_name());
+           txtaddress.setText(c.getAdress());
+           txtphone.setText(c.getPhone());
+        }
         
     }//GEN-LAST:event_tMouseClicked
 

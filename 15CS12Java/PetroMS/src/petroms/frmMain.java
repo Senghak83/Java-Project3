@@ -35,6 +35,7 @@ public class frmMain extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         lis.add(this.lblAdd);
         lis.add(this.lblSal);
+        lis.add(lblorder);
         lis.add(this.lblReport);
         lis.add(this.lblReportOrder);
         lis.add(this.lblReportSaler);
@@ -85,16 +86,18 @@ public class frmMain extends javax.swing.JFrame {
         lbladdcustomer = new javax.swing.JLabel();
         lblsale = new javax.swing.JLabel();
         lblreport = new javax.swing.JLabel();
+        lblOrder = new javax.swing.JLabel();
         paddcustomer = new javax.swing.JPanel();
         lblAdd = new javax.swing.JLabel();
         paddcustomer1 = new javax.swing.JPanel();
         paddcustomer2 = new javax.swing.JPanel();
-        lblReport = new javax.swing.JLabel();
         preport = new javax.swing.JPanel();
         lblReportOrder = new javax.swing.JLabel();
         lblReportSaler = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         lblSal = new javax.swing.JLabel();
+        lblReport = new javax.swing.JLabel();
+        lblorder = new javax.swing.JLabel();
         pcontance = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -147,8 +150,18 @@ public class frmMain extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(50, 100));
 
         lbladdcustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/customer.png"))); // NOI18N
+        lbladdcustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbladdcustomerMouseClicked(evt);
+            }
+        });
 
         lblsale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/sale.png"))); // NOI18N
+        lblsale.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblsaleMouseClicked(evt);
+            }
+        });
 
         lblreport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/minus.png"))); // NOI18N
         lblreport.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -156,6 +169,8 @@ public class frmMain extends javax.swing.JFrame {
                 lblreportMouseClicked(evt);
             }
         });
+
+        lblOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/sale.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -166,7 +181,8 @@ public class frmMain extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbladdcustomer, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblsale, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblreport, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(lblreport, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblOrder, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -175,9 +191,11 @@ public class frmMain extends javax.swing.JFrame {
                 .addComponent(lbladdcustomer)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblsale)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblOrder)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblreport)
-                .addContainerGap(256, Short.MAX_VALUE))
+                .addContainerGap(214, Short.MAX_VALUE))
         );
 
         paddcustomer.setBackground(new java.awt.Color(0, 102, 102));
@@ -202,19 +220,6 @@ public class frmMain extends javax.swing.JFrame {
         paddcustomer2.setBackground(new java.awt.Color(0, 102, 102));
         paddcustomer2.setPreferredSize(new java.awt.Dimension(118, 18));
         paddcustomer2.setLayout(new java.awt.BorderLayout());
-
-        lblReport.setFont(new java.awt.Font("Helvetica Neue", 1, 12)); // NOI18N
-        lblReport.setForeground(new java.awt.Color(255, 255, 255));
-        lblReport.setText("REPORT");
-        lblReport.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblReportMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblReportMouseEntered(evt);
-            }
-        });
-        paddcustomer2.add(lblReport, java.awt.BorderLayout.CENTER);
 
         preport.setBackground(new java.awt.Color(0, 102, 102));
         preport.setPreferredSize(new java.awt.Dimension(118, 62));
@@ -278,6 +283,31 @@ public class frmMain extends javax.swing.JFrame {
             }
         });
 
+        lblReport.setFont(new java.awt.Font("Helvetica Neue", 1, 12)); // NOI18N
+        lblReport.setForeground(new java.awt.Color(255, 255, 255));
+        lblReport.setText("REPORT");
+        lblReport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblReportMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblReportMouseEntered(evt);
+            }
+        });
+
+        lblorder.setFont(new java.awt.Font("Helvetica Neue", 1, 12)); // NOI18N
+        lblorder.setForeground(new java.awt.Color(255, 255, 255));
+        lblorder.setText("ORDER");
+        lblorder.setPreferredSize(new java.awt.Dimension(35, 18));
+        lblorder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblorderMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblorderMouseEntered(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnavigaLayout = new javax.swing.GroupLayout(pnaviga);
         pnaviga.setLayout(pnavigaLayout);
         pnavigaLayout.setHorizontalGroup(
@@ -287,19 +317,19 @@ public class frmMain extends javax.swing.JFrame {
                 .addGroup(pnavigaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnavigaLayout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnavigaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(paddcustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnavigaLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(preport, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
-                            .addGroup(pnavigaLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(paddcustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(pnavigaLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(lblSal, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(pnavigaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblReport, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(preport, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblSal, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(pnavigaLayout.createSequentialGroup()
                         .addGap(56, 56, 56)
+                        .addComponent(lblorder, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(paddcustomer2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(paddcustomer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -320,12 +350,19 @@ public class frmMain extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnavigaLayout.createSequentialGroup()
                         .addComponent(paddcustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(lblSal, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnavigaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(paddcustomer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(paddcustomer2, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
+                        .addGroup(pnavigaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnavigaLayout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addGroup(pnavigaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(paddcustomer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(paddcustomer2, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)))
+                            .addGroup(pnavigaLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(lblSal, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(lblorder, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblReport, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(preport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
@@ -400,17 +437,17 @@ public class frmMain extends javax.swing.JFrame {
 
     private void lblReportMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReportMouseEntered
         // TODO add your handling code here:
-        MousOver(2,lis);
+        MousOver(3,lis);
     }//GEN-LAST:event_lblReportMouseEntered
 
     private void lblReportOrderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReportOrderMouseEntered
         // TODO add your handling code here:
-        MousOver(3,lis);
+        MousOver(4,lis);
     }//GEN-LAST:event_lblReportOrderMouseEntered
 
     private void lblReportSalerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReportSalerMouseEntered
         // TODO add your handling code here:
-        MousOver(4,lis);
+        MousOver(5,lis);
     }//GEN-LAST:event_lblReportSalerMouseEntered
 
     private void lblReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReportMouseClicked
@@ -438,6 +475,25 @@ public class frmMain extends javax.swing.JFrame {
         // TODO add your handling code here:
         db.InsertDataToFile();
     }//GEN-LAST:event_formWindowClosing
+
+    private void lblorderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblorderMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblorderMouseClicked
+
+    private void lblorderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblorderMouseEntered
+        // TODO add your handling code here:
+        this.MousOver(2, lis);
+    }//GEN-LAST:event_lblorderMouseEntered
+
+    private void lbladdcustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbladdcustomerMouseClicked
+        // TODO add your handling code here:
+        this.lblAddMouseClicked(evt);
+    }//GEN-LAST:event_lbladdcustomerMouseClicked
+
+    private void lblsaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblsaleMouseClicked
+        // TODO add your handling code here:
+        this.lblSalMouseClicked(evt);
+    }//GEN-LAST:event_lblsaleMouseClicked
 
     /**
      * @param args the command line arguments
@@ -478,12 +534,14 @@ public class frmMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAdd;
+    private javax.swing.JLabel lblOrder;
     private javax.swing.JLabel lblReport;
     private javax.swing.JLabel lblReportOrder;
     private javax.swing.JLabel lblReportSaler;
     private javax.swing.JLabel lblSal;
     private javax.swing.JLabel lbladdcustomer;
     private javax.swing.JLabel lblback;
+    private javax.swing.JLabel lblorder;
     private javax.swing.JLabel lblreport;
     private javax.swing.JLabel lblsale;
     private javax.swing.JPanel paddcustomer;
