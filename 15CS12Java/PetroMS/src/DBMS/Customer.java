@@ -13,6 +13,8 @@ public class Customer extends Person implements Serializable{
     private String station_name;
     private String phone;
     //-- cunstuctor
+    // p = new customer()
+    // c = new Person()
     public Customer(){
         super();
     }

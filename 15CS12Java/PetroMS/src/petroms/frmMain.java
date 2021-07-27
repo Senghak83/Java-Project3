@@ -468,7 +468,7 @@ public class frmMain extends javax.swing.JFrame {
 
     private void lblSalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSalMouseClicked
         // TODO add your handling code here:
-        refresh(new frmSale());
+        refresh(new frmSale(db));
     }//GEN-LAST:event_lblSalMouseClicked
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing

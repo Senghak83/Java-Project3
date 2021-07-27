@@ -1,17 +1,40 @@
 
 package petroms;
 
+import DBMS.Customer;
+import DBMS.DBMS_Customer;
+import java.awt.TextField;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.Position;
+
+
 /**
  *
  * @author senghak
  */
 public class frmSale extends javax.swing.JPanel {
-
-    /**
-     * Creates new form frmAddCustomer
-     */
+    private DefaultListModel model;
+    private DefaultTableModel tmodel;
+    private DBMS_Customer dbc ;    
     public frmSale() {
         initComponents();
+        
+    }
+    public frmSale(DBMS_Customer dbc){
+        initComponents();
+        model = new DefaultListModel();
+        tmodel = (DefaultTableModel)t.getModel(); 
+        
+        this.dbc = dbc;
+        for(Customer c : dbc.getAllCustomer()){
+            model.addElement(c.getName());
+        }
+        this.listname.setModel(model);
     }
 
     /**
@@ -23,40 +46,376 @@ public class frmSale extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jCalendar1 = new com.toedter.calendar.JCalendar();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
+        dtsale = new com.toedter.calendar.JDateChooser();
+        jLabel3 = new javax.swing.JLabel();
+        txtsearch = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listname = new javax.swing.JList<>();
+        jLabel4 = new javax.swing.JLabel();
+        cbotype = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        txtqty = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtprice = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        lblid = new javax.swing.JLabel();
+        lblname = new javax.swing.JLabel();
+        lblstation = new javax.swing.JLabel();
+        lblphone = new javax.swing.JLabel();
+        lblsex = new javax.swing.JLabel();
+        lbladdress = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        txtinvo = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        t = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 153, 153));
         jLabel1.setText("SATE TO CUSTOMER");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 51, -1, -1));
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 75, 308, 10));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(308, Short.MAX_VALUE))
+        jLabel2.setText("Date ");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, 20));
+        add(dtsale, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 91, 168, -1));
+
+        jLabel3.setText("CusName");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 152, -1, -1));
+
+        txtsearch.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtsearchCaretUpdate(evt);
+            }
+        });
+        txtsearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtsearchActionPerformed(evt);
+            }
+        });
+        add(txtsearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 149, 168, -1));
+
+        listname.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listnameMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(listname);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 178, 168, 112));
+
+        jLabel4.setText("Petrol Type");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
+
+        cbotype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DO (Disel Oil)", "EA92 (Gasoline)", "EA95 (Super Gas)" }));
+        cbotype.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbotypeActionPerformed(evt);
+            }
+        });
+        add(cbotype, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 160, -1));
+
+        jLabel5.setText("Qty");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, -1, -1));
+        add(txtqty, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, 160, -1));
+
+        jLabel6.setText("Price / t");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, -1, -1));
+        add(txtprice, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 360, 160, -1));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Customer Info", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Helvetica Neue", 0, 13), new java.awt.Color(51, 51, 51))); // NOI18N
+
+        jLabel7.setText("CUS ID");
+
+        jLabel8.setText("Name");
+
+        jLabel9.setText("Sex");
+
+        jLabel10.setText("Station ");
+
+        jLabel11.setText("Add");
+
+        jLabel12.setText("Phone");
+
+        lblid.setText("lblid");
+
+        lblname.setText("lblname");
+
+        lblstation.setText("lblstation");
+
+        lblphone.setText("lblphone");
+
+        lblsex.setText("lblsex");
+
+        lbladdress.setText("lbladdress");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel12))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblid)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblphone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblstation, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel11))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbladdress)
+                            .addComponent(lblsex))))
+                .addContainerGap(395, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jLabel1)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(lblid))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(305, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(lblname)
+                    .addComponent(lblsex))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(lblstation)
+                    .addComponent(lbladdress))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(lblphone))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 82, 730, 130));
+
+        jLabel13.setText("Invo");
+        add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+        add(txtinvo, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 118, 168, -1));
+
+        t.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Date", "Invo", "CustName", "Petrol Type", "Qty", "Price", "SubTotal"
+            }
+        ));
+        jScrollPane2.setViewportView(t);
+
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(291, 219, 730, 200));
+
+        jButton1.setText("New");
+        jButton1.setPreferredSize(new java.awt.Dimension(75, 30));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, -1, -1));
+
+        jButton2.setText("Sale");
+        jButton2.setPreferredSize(new java.awt.Dimension(75, 30));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 390, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if(txtinvo.getText().length()==0){
+            Msg(txtinvo,"Input Invoic ");
+
+        }
+        else if(txtqty.getText().equals("")){
+            Msg(txtqty,"Input number of oild type");
+
+            
+        }
+        else if(txtprice.getText().length()==0){
+            Msg(txtprice,"Input price");
+            
+        }
+        else if(lblid.getText().equals("NA")){
+            Msg(txtsearch,"Please Select Name ");
+            
+        }
+        
+        else{
+            try{
+                 int qty = Integer.parseInt(txtqty.getText());
+                 try{
+                     double pri = Double.parseDouble(txtprice.getText());
+                     // ----
+                     double sub =0.0;
+                     SimpleDateFormat d = new SimpleDateFormat("dd-MM-yyyy");
+                     DecimalFormat nf = new DecimalFormat();
+                     String dt = d.format(this.dtsale.getDate());
+                     String invo = txtinvo.getText();
+                     String na = lblname.getText();
+                     String type = cbotype.getSelectedItem().toString();
+                     //--- 
+                     // EA92 EA95 1t = 1390 L
+                     // Do   1t = 1190 L
+                     if(type.equals("DO (Disel Oil)")){
+                         sub = Math.round((qty*pri)/1190);
+                         
+                     }else{
+                         sub = (qty*pri)/1390;
+                     }
+                     tmodel.addRow(new Object[]{dt,invo,na,type,qty,pri,sub});
+                     //System.out.println(dt);
+                 }catch(Exception exp){
+                   Msg(txtprice,"Price must be number");
+                 }
+               }catch(Exception exp){
+               Msg(txtqty,"Input only number");
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    //---- Message 
+    public void Msg(JTextField t, String mess){
+         JOptionPane.showMessageDialog(null, mess);
+         t.selectAll();
+         t.requestFocus();
+         
+    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsearchActionPerformed
+        // TODO add your handling code here:
+        //listname.getNextMatch(TOOL_TIP_TEXT_KEY, WIDTH, Position.Bias.Forward)
+        
+    }//GEN-LAST:event_txtsearchActionPerformed
+
+    private void txtsearchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtsearchCaretUpdate
+        // TODO add your handling code here:
+        if(txtsearch.getText().equals("")){
+                        
+        }
+        int index = listname.getNextMatch(txtsearch.getText(), 0, Position.Bias.Forward);
+        System.out.println(index);
+        if(index<0){
+            lblid.setText("NA");
+            lblname.setText("NA");
+            lblsex.setText("NA");
+            this.lbladdress.setText("NA");
+            this.lblphone.setText("NA");
+            this.lblstation.setText("NA");
+            listname.clearSelection();
+        }
+        else if(index==0){
+            Customer c = dbc.getCustomer(0);
+            ViewCust(c,0);            //----
+            
+        }
+        else{
+            Customer c = dbc.getCustomer(index);
+            ViewCust(c,index);    
+        }
+    }
+       //------
+       private void ViewCust(Customer c,int index){
+           
+            lblid.setText(c.getID());
+            lblname.setText(c.getName());
+            lblsex.setText(c.getSex());
+            this.lbladdress.setText(c.getAdress());
+            this.lblstation.setText(c.getStation_name());
+            this.lblphone.setText(c.getPhone());
+            listname.ensureIndexIsVisible(index);
+            listname.setSelectedIndex(index);
+        
+    }//GEN-LAST:event_txtsearchCaretUpdate
+
+    private void listnameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listnameMouseClicked
+        // TODO add your handling code here:
+        int index = listname.getSelectedIndex();
+        ViewCust(dbc.getCustomer(index),index);
+        txtsearch.setText(listname.getSelectedValue());
+        txtqty.requestFocus();
+        
+    }//GEN-LAST:event_listnameMouseClicked
+
+    private void cbotypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbotypeActionPerformed
+        // TODO add your handling code here:
+            this.txtqty.selectAll();
+            this.txtqty.requestFocus();
+    }//GEN-LAST:event_cbotypeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbotype;
+    private com.toedter.calendar.JDateChooser dtsale;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lbladdress;
+    private javax.swing.JLabel lblid;
+    private javax.swing.JLabel lblname;
+    private javax.swing.JLabel lblphone;
+    private javax.swing.JLabel lblsex;
+    private javax.swing.JLabel lblstation;
+    private javax.swing.JList<String> listname;
+    private javax.swing.JTable t;
+    private javax.swing.JTextField txtinvo;
+    private javax.swing.JTextField txtprice;
+    private javax.swing.JTextField txtqty;
+    private javax.swing.JTextField txtsearch;
     // End of variables declaration//GEN-END:variables
 }
